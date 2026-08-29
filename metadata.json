@@ -1,0 +1,6 @@
+{
+  "name": "StalkerCheck Lab",
+  "description": "A pre-boot security scanner test lab and threat signature simulator for evaluating stalkerware, rootkits, and pre-boot detection engines.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
