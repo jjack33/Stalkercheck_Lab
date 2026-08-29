@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sentinel Scanner Fixture: an intentionally INERT test application.
+  It exists only so Sentinel's scanner has a safe, clearly-labeled package to
+  observe during controlled testing. The service/receiver declarations below
+  carry Android bind-permission strings so Sentinel's declared-capability
+  parser has something to read. None of them has an intent filter, none is
+  exported, none implements accessibility/notification/VPN/device-admin
+  functionality, and the app requests no permissions of any kind.
+  Local, internal test use only. Uninstall after testing.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.SentinelFixture">
+
+        <activity
+            android:name=".FixtureActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".InertDeclarationServiceOne"
+            android:exported="false"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" />
+
+        <service
+            android:name=".InertDeclarationServiceTwo"
+            android:exported="false"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" />
+
+        <service
+            android:name=".InertDeclarationServiceThree"
+            android:exported="false"
+            android:permission="android.permission.BIND_VPN_SERVICE" />
+
+        <receiver
+            android:name=".InertDeclarationReceiver"
+            android:exported="false"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" />
+    </application>
+</manifest>

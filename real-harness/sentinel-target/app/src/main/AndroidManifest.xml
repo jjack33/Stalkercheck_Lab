@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Sentinel HIGH-FIDELITY TEST TARGET — com.sentinel.target
+
+  Purpose: give the Sentinel anti-stalkerware scanner a REAL, OS-recognized
+  high-risk-shaped app to detect during controlled testing. Unlike the inert
+  fixture, the components below are genuine, registerable capabilities:
+  the accessibility, notification-listener, device-admin and VPN services carry
+  the correct intent filters + config so Android lists them in Settings and lets
+  a tester actually ENABLE them. That makes detection exercise real granted
+  capabilities, not just manifest strings.
+
+  SAFETY: every component body is intentionally empty / no-op. This app reads no
+  notifications, captures no accessibility events, routes no VPN traffic,
+  enforces no device policy, collects nothing, stores nothing, transmits nothing,
+  and hides nothing. It is clearly labeled and launchable. It is a benign test
+  target with the SHAPE of stalkerware and NONE of the behavior.
+  Local, internal test use only. Uninstall after testing.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Sensitive/persistence permissions Sentinel's heuristic scores. Declared so
+         the scanner sees a realistic high-risk request set. None is exercised. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="false"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.SentinelTarget">
+
+        <activity
+            android:name=".TargetActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- REAL accessibility service: appears in Settings > Accessibility and can
+             be enabled. Callbacks are empty; it observes nothing. -->
+        <service
+            android:name=".BenignAccessibilityService"
+            android:exported="true"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_config" />
+        </service>
+
+        <!-- REAL notification-listener service: appears in Settings > Notification
+             access and can be enabled. Callbacks are empty; it reads no notifications. -->
+        <service
+            android:name=".BenignNotificationListenerService"
+            android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+
+        <!-- REAL VPN service declaration. It never calls Builder.establish(), so no
+             tunnel is created and no traffic is captured or routed. -->
+        <service
+            android:name=".BenignVpnService"
+            android:exported="true"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
+
+        <!-- REAL device-admin receiver: appears in Settings > Device admin apps and
+             can be activated. It enforces no policy; all overrides are empty. -->
+        <receiver
+            android:name=".BenignDeviceAdminReceiver"
+            android:exported="true"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Persistence signal: declared boot receiver. Body is empty; it starts
+             nothing at boot. -->
+        <receiver
+            android:name=".BenignBootReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Benign, VISIBLE foreground service a tester can start from the UI. It
+             posts a labeled notification and does no work; collects nothing. -->
+        <service
+            android:name=".BenignForegroundService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Benign anti-stalkerware detection test target; performs no work and collects no data." />
+        </service>
+    </application>
+</manifest>
