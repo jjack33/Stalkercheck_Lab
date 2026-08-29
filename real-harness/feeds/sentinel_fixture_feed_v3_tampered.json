@@ -1,0 +1,23 @@
+{
+  "feedId": "sentinel-fixture-feed",
+  "version": 3,
+  "generatedAt": "2026-08-29T04:02:58Z",
+  "expiresAt": "2027-08-29T04:02:58Z",
+  "algorithm": "SHA256withECDSA",
+  "keyId": "sentinel-inert-fixture-2026-internal",
+  "entries": [
+    {
+      "id": "SENTINEL-INERT-FIXTURE-ONLY",
+      "status": "ACTIVE",
+      "sourceConfidence": "HIGH",
+      "identifiers": {
+        "packageNames": ["com.sentinel.fixture"],
+        "certificateSha256": ["7FD0C87A25D46C45CCE83B9F39D1CF53DA5479CA0BEEC59E89C20672CA8F1239"]
+      },
+      "remediation": {
+        "notes": "Benign 1nert test fixture only. Uninstall after testing."
+      }
+    }
+  ],
+  "signature": "MEQCIGY4p4rXjFxhW+ZeGlksotHwqDvLzfrgSMAPD7m6hET2AiB/7HVajpRLhbohB4N3+HANDixgf7OvTtW2aP5pmHrXTg=="
+}

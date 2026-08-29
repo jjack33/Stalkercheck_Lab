@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sentinel Test Target — Benign High-Risk Config</string>
+    <string name="start_benign_service">Start benign foreground service</string>
+    <string name="accessibility_description">Benign anti-stalkerware test target. This accessibility service is intentionally empty and observes nothing. It exists only so Sentinel can detect a real, enable-able accessibility declaration during controlled testing.</string>
+    <string name="target_explanation">This is the Sentinel HIGH-FIDELITY TEST TARGET.\n\nIt intentionally has the SHAPE of stalkerware — it declares a real, enable-able accessibility service, notification-listener service, device-admin receiver, and VPN service, and requests overlay, install-packages, boot, and foreground-service permissions.\n\nIt has NONE of the behavior: every component is a no-op. It reads no notifications, captures no accessibility events, routes no VPN traffic, enforces no device policy, collects nothing, transmits nothing, and hides nothing.\n\nIts only purpose is to give the Sentinel anti-stalkerware scanner a genuine high-risk configuration to detect during controlled internal testing.\n\nUninstall this app after testing.</string>
+</resources>
